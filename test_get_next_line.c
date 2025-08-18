@@ -6,7 +6,7 @@
 /*   By: alegesle <alegesle@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/16 11:29:04 by alegesle          #+#    #+#             */
-/*   Updated: 2025/08/17 19:10:03 by alegesle         ###   ########.fr       */
+/*   Updated: 2025/08/18 21:36:24 by alegesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,13 @@
 int	main(void)
 {	
 	int		fd;
-	char	buffer[50];
 	int		count;
+	char	*line;
 
 	count = 0;
 	fd = open("./file.txt", O_RDONLY);
+
+	//printf("%d\n", fd);
 
 	/*if (fd < 0)
 	{
@@ -31,8 +33,8 @@ int	main(void)
 	while (count < 3)
 	{
 		count++;
-		get_next_line(fd);
-		printf("First 10 bytes: %s\n", buffer);
+		line = get_next_line(fd);
+		printf("First 10 bytes: %s\n", line);
 	}
 	close(fd);
 	return (0);
