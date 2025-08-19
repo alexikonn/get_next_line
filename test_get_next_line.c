@@ -6,7 +6,7 @@
 /*   By: alegesle <alegesle@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/16 11:29:04 by alegesle          #+#    #+#             */
-/*   Updated: 2025/08/18 21:36:24 by alegesle         ###   ########.fr       */
+/*   Updated: 2025/08/19 12:02:22 by alegesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ int	main(void)
 	int		fd;
 	int		count;
 	char	*line;
+	int		new;
 
 	count = 0;
 	fd = open("./file.txt", O_RDONLY);
@@ -34,8 +35,14 @@ int	main(void)
 	{
 		count++;
 		line = get_next_line(fd);
-		printf("First 10 bytes: %s\n", line);
+		new = has_new_line(line);
+		printf("\nBUFFER_SIZE: %d\n", BUFFER_SIZE);
+		printf("buffer: %s\n", line);
+		printf("has_new_line: %d\n", new);
 	}
 	close(fd);
 	return (0);
 }
+
+//printing the BUFFER_SIZE & the buffer & if the buffer has a new_line_charachter
+// if yes: 1 - if not: 0
