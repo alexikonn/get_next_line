@@ -6,7 +6,7 @@
 /*   By: alegesle <alegesle@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 17:18:04 by alegesle          #+#    #+#             */
-/*   Updated: 2025/08/18 23:29:21 by alegesle         ###   ########.fr       */
+/*   Updated: 2025/08/19 12:02:22 by alegesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,24 +16,25 @@
 
 size_t	ft_strlcpy(char *dst, const char *src, size_t size)
 {
-	size_t	i;
+	size_t	src_len;
 	size_t	j;
 
-	i = 0;
-	j = 0;
-	while (src[i])
-		i++;
+	src_len = 0;
+	while (src[src_len])
+		src_len++;
 	if (size == 0)
-		return (i);
-	while (src[j] && j < size -1)
+		return (src_len);
+	j = 0;
+	while (src[j] != '\0' && j < size -1)
 	{
 		dst[j] = src[j];
 		j++;
 	}
 	dst[j] = '\0';
-	return (i);
+	return (src_len);
 }
 // copied function from libft
+//changed variable names to more descriptive names 
 
 char	*ft_strdup(const char *s)
 {
@@ -41,7 +42,7 @@ char	*ft_strdup(const char *s)
 	size_t	len;
 
 	len = 0;
-	while (s[len] != '\0')
+	while (s[len] != '\0' && len < BUFFER_SIZE)
 		len++;
 	copy = malloc(len + 1);
 	if (!copy)
@@ -52,6 +53,24 @@ char	*ft_strdup(const char *s)
 // wrote a while loop for finding out the length of buffer and saving it in the variable len
 // ft_strdup duplicates the buffer and I created buffer_dup, which contains the copied buffer
 // it was nessasry to create a buffer_dup, because buffer is a local variable and is not working outside the function
+//added len < BUFFER_SIZE to the while loop, which makes rue that only as many carachters are copied as the BUFFER_SIZE. 
+// -> before that, while printing there were more characters than BUFFER_SIZE, because len was always searching for '\0'
+
+int	has_new_line(const char *s)
+{
+	int	i;
+
+	i = 0;
+	while (s[i] != '\0')
+	{
+		if (s[i] == '\n')
+			return (1);
+		i++;
+	}
+	return (0);
+}
+//created this function, to check if the buffer has a new-line character (\n)
+//checked it with the main
 
 char	*get_next_line(int fd)
 {
@@ -71,10 +90,7 @@ char	*get_next_line(int fd)
 }
 // Buffer_SIZE is the Macro for the size of buffer, which will be added to compile during evaluation
 
-//to do: test and compile with different buffer sizes with the -D flag and without
+//while compiling with different BUFFER_SIZES we found out, that len of the string should be < BUFFER_SIZE
 
-/*smth is not working with -D BUFFER_SIZE=42 (First 10 bytes: Guten Tag, hallo
-haben Sie sich schon ents�F
-First 10 bytes: chieden,
-was Sie heute bestellen wollen?
-First 10 bytes: */
+// next to-do: implement has_new_line function into get_next_line to check, if buffer has a '\n' or not,
+// -> if yes, it should give the line, when not, it should search as long as it finds one
