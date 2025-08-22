@@ -6,7 +6,7 @@
 /*   By: alegesle <alegesle@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 17:18:04 by alegesle          #+#    #+#             */
-/*   Updated: 2025/08/19 12:02:22 by alegesle         ###   ########.fr       */
+/*   Updated: 2025/08/22 15:14:36 by alegesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,35 @@ int	has_new_line(const char *s)
 }
 //created this function, to check if the buffer has a new-line character (\n)
 //checked it with the main
+
+char	*ft_strjoin(const char *s1, const char *s2)
+{
+	char	*result;
+	int		len1;
+	int		len2;
+	int		i;
+
+	len1 = 0;
+	while (s1[len1] != '\0')
+		len1++;
+	len2 = 0;
+	while (s2[len2] != '\0')
+		len2++;
+	result = malloc(len1 + len2 + 1);
+	if (!result)
+		return (NULL);
+	result[len1 + len2] = '\0';
+	i = -1;
+	while (s1[++i] != '\0')
+		result[i] = s1[i];
+	i = -1;
+	while (s2[++i] != '\0')
+		result [i + len1] = s2[i];
+	return (result);
+}
+//created this function specialized for getnextline
+//it joins string 1 and string 2 until the null-character
+//learned about the difference between ++i and i++
 
 char	*get_next_line(int fd)
 {
