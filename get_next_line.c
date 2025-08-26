@@ -6,7 +6,7 @@
 /*   By: alegesle <alegesle@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 17:18:04 by alegesle          #+#    #+#             */
-/*   Updated: 2025/08/22 21:36:12 by alegesle         ###   ########.fr       */
+/*   Updated: 2025/08/26 15:32:00 by alegesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,24 +71,33 @@ char	*get_next_line(int fd)
 	char	*line;
 	size_t	i;
 
-	i = 0;
-	while (i < BUFFER_SIZE + 1)
-	{
-		buffer[i] = 0;
-		i++;
-	}
+	line = "";
 	while (has_new_line(line) == 0)
-	
-
-	
-
-	//read(fd, buffer, BUFFER_SIZE);
-	//line = ft_strjoin(buffer, "");
+	{
+		i = 0;
+		while (i < BUFFER_SIZE + 1)
+		{
+			buffer[i] = 0;
+			i++;
+		}
+		if (read(fd, buffer, BUFFER_SIZE) == 0)
+			break;
+		line = ft_strjoin(line, buffer);
+	}
 	return (line);
 }
+//created a while loop which checks if line has a new line character
+//if \n is not found, i is initialized to 0 and then the second while loop inside the first one
+//sets every i in buffer to 0 to make sure, that read does not overwrite buffer from the call before
+//line is initialized to an empty string and then line becomes the new string through ft_strjoin (joins line and buffer)
+//read only reads whats inside the file.txt and breaks, when end of file is reached,
+//otherwise it reads as long as functioncall and there is no end of file-return value = 0 when end of file
+
+
 
 //started a while loop, which checks if there is a new line charackter in the line variable,
 //which is the joined string
+//learned that you can put a whole functioncall which returns a (return)value in a while loop in the paranthesis
 
 
 // Buffer_SIZE is the Macro for the size of buffer, which will be added to compile during evaluation
