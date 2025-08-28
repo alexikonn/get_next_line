@@ -6,7 +6,7 @@
 /*   By: alegesle <alegesle@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 17:18:04 by alegesle          #+#    #+#             */
-/*   Updated: 2025/08/27 13:28:56 by alegesle         ###   ########.fr       */
+/*   Updated: 2025/08/28 20:26:17 by alegesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,9 @@ int	has_new_line(const char *s)
 	int	i;
 
 	i = 0;
+	if (s == NULL)
+		return (0);
+		//if char *s is a NULL pointer (the adress)
 	while (s[i] != '\0')
 	{
 		if (s[i] == '\n')
@@ -36,17 +39,17 @@ int	has_new_line(const char *s)
 //if yes: 1 as return value - if not: 0 as return value
 
 char	*ft_strjoin(const char *s1, const char *s2)
-{
+{ //WHAT happens with ft_strjoin when one s is NULL, handle like empty strings??
 	char	*result;
 	int		len1;
 	int		len2;
 	int		i;
 
 	len1 = 0;
-	while (s1[len1] != '\0')
+	while (s1 != NULL && s1[len1] != '\0')
 		len1++;
 	len2 = 0;
-	while (s2[len2] != '\0')
+	while (s2 != NULL && s2[len2] != '\0')
 		len2++;
 	// find out length of s1 and s2
 	result = malloc(len1 + len2 + 1);
@@ -57,10 +60,10 @@ char	*ft_strjoin(const char *s1, const char *s2)
 	result[len1 + len2] = '\0';
 	//null-terminating the result string
 	i = -1;
-	while (s1[++i] != '\0')
+	while (s1 != NULL && s1[++i] != '\0')
 		result[i] = s1[i];
 	i = -1;
-	while (s2[++i] != '\0')
+	while (s2 != NULL && s2[++i] != '\0')
 		result [i + len1] = s2[i];
 	return (result);
 	//starting with i = -1, because we increase i in the while conditions first, so that means s[i] goes to 1 and does not work with the char on the 0 positions
@@ -137,15 +140,14 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 //
 char	*get_next_line(int fd)
 {
-	char	buffer[BUFFER_SIZE + 1];
-	char	*line;
-	size_t	i;
-	char	*sub_line;
+	char		buffer[BUFFER_SIZE + 1];
+	static char	*line = NULL;
+	size_t		i;
+	char		*sub_line;
 	//the new string which is the subline until the new line character
-	size_t	sub_len;
+	size_t		sub_len;
 	//length of the substring
-
-	line = ""; ////line is initialized to an empty string and then line becomes the new string through ft_strjoin (joins line and buffer)
+	 ////line is initialized to an empty string and then line becomes the new string through ft_strjoin (joins line and buffer)
 	while (has_new_line(line) == 0) //as long as new line character is not found
 	{
 		i = 0;
@@ -154,15 +156,24 @@ char	*get_next_line(int fd)
 			buffer[i] = 0;
 			i++;
 		} //every i in buffer is initialized to zero, to make sure everything inside is overwrite by zero
-		if (read(fd, buffer, BUFFER_SIZE) == 0)
+		if (read(fd, buffer, BUFFER_SIZE) == 0) //CHECK EDGDE CASE IF LAST CHARACTER IN FILE IS NEW LINE CHARACHTER
 			break; //read only read as long as the end of file is reached, when this happens, there is a function break
 		line = ft_strjoin(line, buffer);
 		//line is always the joined string starts at the first char which is in the text file and joins everything that is read in BUFFER_SIZE
 	}
-	sub_len = ft_strchr(line, '\n') - line +1; //sub_len is as long as the pointer to line until new line character is found 
+	if (has_new_line(line) == 1)
+	{
+		sub_len = ft_strchr(line, '\n') - line +1; //sub_len is as long as the pointer to line until new line character is found 
 	//(f.ex. first character of a string in BUFFER_SIZE) minus pointer to current line + 1 for the new line character
-	sub_line = ft_substr(line, 0, sub_len); // sub_line is the new string which is build out of a line until a newline character (including it)
-	return (sub_line); //returns the new line (sub_line) including the new line character (compiled, worked)
+		sub_line = ft_substr(line, 0, sub_len); // sub_line is the new string which is build out of a line until a newline character (including it)
+		line = ft_substr(line, sub_len, BUFFER_SIZE);
+		//line saves the substr which is the rest from sub_line and as line is a static variable, in the next call we start with the saved part
+		return (sub_line); //returns the new line (sub_line) including the new line character (compiled, worked)
+	}
+		//check if line is an empty string, so it returns NULL, because NULL [i] -> segfault. i can´t iterate through a null pointer
+	sub_line = line;
+	line = NULL;
+	return (sub_line);
 }
 //TO DO: fix edge case, if end of file is reached and no more new-line character is found ORRRR when reaching the break point while read
 //what happens with the part which is cut out after new line is found, because BUFFER_SIZE was bigger
