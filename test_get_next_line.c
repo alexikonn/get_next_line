@@ -6,7 +6,7 @@
 /*   By: alegesle <alegesle@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/16 11:29:04 by alegesle          #+#    #+#             */
-/*   Updated: 2025/08/19 12:02:22 by alegesle         ###   ########.fr       */
+/*   Updated: 2025/08/28 13:59:54 by alegesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	main(void)
 		printf("Error\n");
 		return (1);
 	}*/
-	while (count < 3)
+	while (count < 4)
 	{
 		count++;
 		line = get_next_line(fd);
@@ -46,3 +46,5 @@ int	main(void)
 
 //printing the BUFFER_SIZE & the buffer & if the buffer has a new_line_charachter
 // if yes: 1 - if not: 0
+
+//NULL[i] -> segfault 
