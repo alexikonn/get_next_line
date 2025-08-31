@@ -6,7 +6,7 @@
 /*   By: alegesle <alegesle@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/16 11:29:04 by alegesle          #+#    #+#             */
-/*   Updated: 2025/08/28 13:59:54 by alegesle         ###   ########.fr       */
+/*   Updated: 2025/08/31 20:18:00 by alegesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,8 @@
 int	main(void)
 {	
 	int		fd;
-	int		count;
 	char	*line;
-	int		new;
 
-	count = 0;
 	fd = open("./file.txt", O_RDONLY);
 
 	//printf("%d\n", fd);
@@ -31,15 +28,15 @@ int	main(void)
 		printf("Error\n");
 		return (1);
 	}*/
-	while (count < 4)
+	printf("\nBUFFER_SIZE: %d\n\n", BUFFER_SIZE);
+	line = get_next_line(fd);
+	while (line != NULL)
 	{
-		count++;
+		printf("%s", line);
+		free(line);
 		line = get_next_line(fd);
-		new = has_new_line(line);
-		printf("\nBUFFER_SIZE: %d\n", BUFFER_SIZE);
-		printf("buffer: %s\n", line);
-		printf("has_new_line: %d\n", new);
 	}
+	printf("\n");
 	close(fd);
 	return (0);
 }
