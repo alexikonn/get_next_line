@@ -6,7 +6,7 @@
 /*   By: alegesle <alegesle@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 17:25:19 by alegesle          #+#    #+#             */
-/*   Updated: 2025/08/31 19:54:18 by alegesle         ###   ########.fr       */
+/*   Updated: 2025/09/01 15:33:52 by alegesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,8 @@
 # include <stdlib.h> // malloc & free
 
 char	*get_next_line(int fd);
-//int		has_new_line(const char *s);
-
+char	*ft_strjoin(const char *s1, const char *s2);
+char	*ft_strchr(const char *s, int c);
+char	*build_line(char **line_ptr);
 
 #endif
-
-//we learned about macros, how to define, checked with the Norm & why they are in the header file like this
-// the 42 value is by default as subject says
-
-// when BUFFER_SIZE = 0 > First 10 bytes: �
-						// First 10 bytes: ]
-						// First 10 bytes: ]
