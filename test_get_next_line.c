@@ -6,7 +6,7 @@
 /*   By: alegesle <alegesle@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/16 11:29:04 by alegesle          #+#    #+#             */
-/*   Updated: 2025/08/31 20:18:00 by alegesle         ###   ########.fr       */
+/*   Updated: 2025/09/08 12:49:34 by alegesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,12 @@
 #include <stdio.h>
 
 int	main(void)
-{	
+{
 	int		fd;
 	char	*line;
 
 	fd = open("./file.txt", O_RDONLY);
-
 	//printf("%d\n", fd);
-
 	/*if (fd < 0)
 	{
 		printf("Error\n");
@@ -41,7 +39,7 @@ int	main(void)
 	return (0);
 }
 
-//printing the BUFFER_SIZE & the buffer & if the buffer has a new_line_charachter
+//printing the BUFFER_SIZE & the buffer & if the buffer has a \n
 // if yes: 1 - if not: 0
 
 //NULL[i] -> segfault 
