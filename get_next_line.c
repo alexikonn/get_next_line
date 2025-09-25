@@ -6,7 +6,7 @@
 /*   By: alegesle <alegesle@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 17:18:04 by alegesle          #+#    #+#             */
-/*   Updated: 2025/09/08 14:00:46 by alegesle         ###   ########.fr       */
+/*   Updated: 2025/09/25 12:00:34 by alegesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ char	*get_next_line(int fd)
 	char		*sub_line;
 	char		*free_line;
 
+	if (fd < 0)
+		return (NULL);
 	while (ft_strchr(line, '\n') == NULL)
 	{
 		i = 0;
