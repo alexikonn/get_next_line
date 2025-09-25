@@ -6,7 +6,7 @@
 /*   By: alegesle <alegesle@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 17:23:35 by alegesle          #+#    #+#             */
-/*   Updated: 2025/09/08 12:46:20 by alegesle         ###   ########.fr       */
+/*   Updated: 2025/09/25 12:16:25 by alegesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ char	*build_line(char **line_ptr)
 		sub_len = ft_strchr(line, '\n') - line + 1;
 		sub_line = ft_substr(line, 0, sub_len);
 		free_line = line;
-		*line_ptr = ft_substr(line, sub_len, BUFFER_SIZE);
+		*line_ptr = ft_substr(line, sub_len, BUFFER_SIZE); // could the issue be that the remainder is always in BUFFER_SIZE?
 		free(free_line);
 	}
 	else
