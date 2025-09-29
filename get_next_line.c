@@ -6,7 +6,7 @@
 /*   By: alegesle <alegesle@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 17:18:04 by alegesle          #+#    #+#             */
-/*   Updated: 2025/09/29 21:11:17 by alegesle         ###   ########.fr       */
+/*   Updated: 2025/09/29 21:18:25 by alegesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ char	*get_next_line(int fd)
 			buffer[i] = 0;
 			i++;
 		}
-		if (read(fd, buffer, BUFFER_SIZE) <= 0)
+		if (read(fd, buffer, BUFFER_SIZE) <= 0)// when invalid fd, read gives back -1, and gnl returns NULL for invalid fd
 			break ;
 		free_line = line;
 		line = ft_strjoin(line, buffer);
