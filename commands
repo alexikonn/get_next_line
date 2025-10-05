@@ -1,0 +1,5 @@
+terminal commands to learn and use
+
+cat
+cat -e
+./a.out | cat -e
