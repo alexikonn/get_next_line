@@ -6,7 +6,7 @@
 /*   By: alegesle <alegesle@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 17:23:35 by alegesle          #+#    #+#             */
-/*   Updated: 2025/09/25 12:16:25 by alegesle         ###   ########.fr       */
+/*   Updated: 2025/10/05 23:03:52 by alegesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 size_t	ft_strlcpy(char *dst, const char *src, size_t size);
 
-char	*build_line(char **line_ptr)
+char	*build_line(char **line_ptr) //the adress of remainder, for changing what is in remainder
 {
 	size_t	sub_len;
 	char	*free_line;
@@ -28,7 +28,7 @@ char	*build_line(char **line_ptr)
 		sub_len = ft_strchr(line, '\n') - line + 1;
 		sub_line = ft_substr(line, 0, sub_len);
 		free_line = line;
-		*line_ptr = ft_substr(line, sub_len, BUFFER_SIZE); // could the issue be that the remainder is always in BUFFER_SIZE?
+		*line_ptr = ft_substr(line, sub_len, BUFFER_SIZE);
 		free(free_line);
 	}
 	else
@@ -36,7 +36,7 @@ char	*build_line(char **line_ptr)
 		sub_line = line;
 		*line_ptr = NULL;
 	}
-	return (sub_line);
+	return (sub_line); //edge case when \n is last character in file (\n\0 > empty string is built as remainder)
 }
 
 char	*ft_strchr(const char *s, int c)
