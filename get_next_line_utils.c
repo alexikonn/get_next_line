@@ -6,7 +6,7 @@
 /*   By: alegesle <alegesle@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 17:23:35 by alegesle          #+#    #+#             */
-/*   Updated: 2025/10/05 23:03:52 by alegesle         ###   ########.fr       */
+/*   Updated: 2025/11/05 21:22:50 by alegesle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,18 +18,19 @@ size_t	ft_strlcpy(char *dst, const char *src, size_t size);
 char	*build_line(char **line_ptr) //the adress of remainder, for changing what is in remainder
 {
 	size_t	sub_len;
-	char	*free_line;
 	char	*sub_line;
 	char	*line;
 
 	line = *line_ptr;
 	if (ft_strchr(line, '\n') != NULL)
 	{
-		sub_len = ft_strchr(line, '\n') - line + 1;
+		sub_len = ft_strchr(line, '\n') - line + 1; //calculate with: return value of strchr (adress of where \n is found - where line is pointing to (adress) +1 (for ne \n character))
 		sub_line = ft_substr(line, 0, sub_len);
-		free_line = line;
-		*line_ptr = ft_substr(line, sub_len, BUFFER_SIZE);
-		free(free_line);
+		if (line[sub_len] == '\0')
+			*line_ptr = NULL;
+		else
+			*line_ptr = ft_substr(line, sub_len, BUFFER_SIZE);
+		free(line);
 	}
 	else
 	{
